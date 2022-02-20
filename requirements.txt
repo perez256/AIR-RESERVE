@@ -4,3 +4,4 @@ djangorestframework==3.13.1
 djangorestframework-simplejwt==4.4.0
 requests==2.27.1
 PyJWT==1.7.1
+pytest==7.0.1

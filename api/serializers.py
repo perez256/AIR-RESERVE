@@ -1,12 +1,10 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
 from rest_framework_simplejwt.tokens import RefreshToken
-
 from .models import Flight, Booking
 
 
 class UserSerializer(serializers.ModelSerializer):
-
     _id = serializers.SerializerMethodField(read_only=True)
     isAdmin = serializers.SerializerMethodField(read_only=True)
     name = serializers.SerializerMethodField(read_only=True)
@@ -34,7 +32,7 @@ class UserSerializerWithToken(UserSerializer):
 
     class Meta:
         model = User
-        fields = ['id', '_id', 'username', 'email', 'name', 'isAdmin', 'token']
+        fields = ['id',  'username', 'email', 'name', 'isAdmin', 'token']
 
     def get_token(self, obj):
         token = RefreshToken.for_user(obj)
@@ -44,4 +42,10 @@ class UserSerializerWithToken(UserSerializer):
 class FlightSerializer(serializers.ModelSerializer):
     class Meta:
         model = Flight
+        fields = '__all__'
+
+
+class BookingSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Booking
         fields = '__all__'
