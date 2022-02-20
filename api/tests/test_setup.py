@@ -9,15 +9,24 @@ class TestSetUp(APITestCase):
 
         self.flights_url = reverse('flights')
         self.bookings_url = reverse('bookings')
+        self.create_booking_url = reverse('create_booking')
 
         # create user
-        self.idx = 1
         self.user_data = {
             "username": "dst25",
             "password": "admin@123",
             "email": "ttsrr@gmail.com",
             "first_name": "Kato",
             "last_name": "John"
+        }
+
+        self.create_booking_data = {
+            "_id": 2,
+            "date_reserve": None,
+            "date_cancel": None,
+            "is_canceled": "false",
+            "user": 1,
+            "ticket": 1
         }
         return super().setUp()
 

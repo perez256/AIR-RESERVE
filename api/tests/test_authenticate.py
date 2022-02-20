@@ -11,10 +11,8 @@ class TestAuthenticate(TestSetUp):
         res = self.client.post(self.register_url)
         pdb.set_trace()
         self.assertEqual(res.status_code, 400)
-        # assert(res.status_code, 400)
 
     def test_user_can_signup_correctly(self):
         res = self.client.post(self.register_url, format="json")
         pdb.set_trace()
-        # self.assertEqual(res.data['email'], self.user_data['email'])
         self.assertEqual(res.status_code, 201)

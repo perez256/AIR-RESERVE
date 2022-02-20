@@ -12,7 +12,7 @@ from api.serializers import FlightSerializer, BookingSerializer
 def all_flights(incoming):
     flights = Flight.objects.all()
     serializer = FlightSerializer(flights, many=True)
-    return Response(serializer.data)
+    return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 # /flights/id
@@ -53,8 +53,9 @@ def get_bookings(incoming):
 def create_booking(incoming):
     if incoming.method == 'POST':
         try:
-            booking_data = JSONParser().parse(incoming)
-            booking_serializer = BookingSerializer(data=booking_data)
+            # booking_data = JSONParser().parse(incoming)
+            data = incoming.data
+            booking_serializer = BookingSerializer(data=data)
             if booking_serializer.is_valid():
                 booking_serializer.save()
                 return Response(booking_serializer.data, status=status.HTTP_201_CREATED)
@@ -74,7 +75,7 @@ def get_booking_detail(incoming, pk):
     if incoming.method == 'GET':
         try:
             serializer = BookingSerializer(ticket, many=False)
-            return Response(serializer.data)
+            return Response(serializer.data, status=status.HTTP_200_OK)
         except Flight.DoesNotExist:
             return Response({'message': 'This Ticket does not Exist'}, status=status.HTTP_400_BAD_REQUEST)
     elif incoming.method == 'PUT':
